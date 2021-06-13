@@ -38,6 +38,12 @@ app.post('/users', (request, response) => {
     todos: []
   }
 
+  const isUsernameAlreadyInUse = users.find((user) => user.username === username)
+
+  if (isUsernameAlreadyInUse) {
+    return response.status(400).json({ error: 'Username already in use' })
+  }
+
   users.push(newUser)
 
   return response.status(201).json(newUser)
